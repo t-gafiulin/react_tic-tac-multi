@@ -21,3 +21,8 @@ a {
   margin: auto;
   margin-top: 200px;
 }
+
+.join-game-block__input,
+.new-game-block__input{
+  width: 196px;
+}
