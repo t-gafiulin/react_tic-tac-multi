@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 class JoinGame extends Component {
     render() {
-        return <div>
+        return <div className="join-game-block">
                 <input placeholder="Username"/>
                 <input placeholder="Game token" />
                 <Link to="/startGame"><button className="nav">Start Game</button></Link>

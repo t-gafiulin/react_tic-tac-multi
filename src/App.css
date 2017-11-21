@@ -12,3 +12,12 @@ a {
   display: block;
   width: 200px;
 }
+
+.nav-block,
+.join-game-block,
+.new-game-block,
+.gamefield-block{
+  width: 200px;
+  margin: auto;
+  margin-top: 200px;
+}
