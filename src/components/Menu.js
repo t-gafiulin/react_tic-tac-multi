@@ -5,8 +5,8 @@ class Menu extends Component {
   render() {
     return (
       <div>
-        <button><Link to="/newGame">New Game</Link></button>
-        <button><Link to="/joinGame">Join Game</Link></button>
+        <Link to="/newGame"><button className="nav">New Game</button></Link>
+        <Link to="/joinGame"><button className="nav">Join Game</button></Link>
       </div>
     );
   }

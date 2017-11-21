@@ -8,7 +8,7 @@ class NewGame extends Component {
         return <div>
                 <input placeholder="Username"/>
                 <input placeholder="Size of Game Field" />
-                <button><Link to="/startGame">Start Game</Link></button>
+                <Link to="/startGame"><button className="nav">Start Game</button></Link>
             </div>;
     }
 }

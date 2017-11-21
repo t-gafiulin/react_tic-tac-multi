@@ -6,7 +6,7 @@ class GameField extends Component {
     render() {
         return <div>
             <div>Game Field</div>
-            <button><Link to="/">Exit Game</Link></button>
+            <Link to="/"><button className="nav">Exit Game</button></Link>
 
         </div>;
     }

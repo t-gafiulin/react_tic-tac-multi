@@ -6,7 +6,7 @@ class JoinGame extends Component {
         return <div>
                 <input placeholder="Username"/>
                 <input placeholder="Game token" />
-                <button><Link to="/startGame">Start Game</Link></button>
+                <Link to="/startGame"><button className="nav">Start Game</button></Link>
             </div>;
     }
 }
