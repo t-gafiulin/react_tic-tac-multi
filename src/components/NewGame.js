@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class NewGame extends Component {
 
@@ -7,7 +8,7 @@ class NewGame extends Component {
         return <div>
                 <input placeholder="Username"/>
                 <input placeholder="Size of Game Field" />
-                <button>Start Game</button>
+                <button><Link to="/startGame">Start Game</Link></button>
             </div>;
     }
 }
