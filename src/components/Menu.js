@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import NewGame from './NewGame';
-import JoinGame from './JoinGame';
+import {Link } from 'react-router-dom';
 
 class Menu extends Component {
   render() {
     return (
       <div>
-        <NewGame />
-        <JoinGame />
+        <Link to="/newGame"><nav>New Game</nav></Link>
+        <Link to="/joinGame"><nav>Join Game</nav></Link>
       </div>
     );
   }
