@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { joinGame } from '../AC';
 
 class JoinGame extends Component {
     state = {
@@ -12,7 +14,8 @@ class JoinGame extends Component {
     }
 
     handleClick(){
-        console.log(this.state.username, this.state.game_token);
+        const { username, game_token } = this.state;
+        this.props.joinGame(username, game_token);
     }
 
     render() {
@@ -39,4 +42,9 @@ class JoinGame extends Component {
     }
 }
 
-export default JoinGame;
+// export default JoinGame;
+
+export default connect(
+    null,
+    { joinGame }
+)(JoinGame);

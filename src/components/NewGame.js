@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createGame } from '../AC';
 
 class NewGame extends Component {
     state = {
@@ -12,7 +14,8 @@ class NewGame extends Component {
     }
 
     handleClick(){
-        console.log(this.state.username, this.state.size);
+        const { username, size } = this.state;
+        this.props.createGame(username, size);
     }
 
     render() {
@@ -39,4 +42,9 @@ class NewGame extends Component {
     }
 }
 
-export default NewGame;
+//export default NewGame;
+
+export default connect(
+    null,
+    { createGame }
+)(NewGame);

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class Menu extends Component {
   render() {
+    console.log(this.props.state);
     return (
       <div className="nav-block">
         <Link to="/newGame"><button className="nav">New Game</button></Link>
@@ -12,4 +14,10 @@ class Menu extends Component {
   }
 }
 
-export default Menu;
+// /export default Menu;
+
+export default connect(
+  state => {
+    state: state.game
+  }
+)(Menu);
