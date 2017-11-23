@@ -30,7 +30,7 @@ class NewGame extends Component {
                     placeholder="Size of Game Field"
                     onChange={this.handleChange.bind(this, "size")}
                 />
-                <Link to="/startGame">
+                <Link to={"/startGame/" + this.state.username}>
                     <button 
                         className="nav" 
                         onClick={this.handleClick.bind(this)}
