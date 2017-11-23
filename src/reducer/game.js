@@ -26,14 +26,14 @@ export default function game ( state = initialState, action ){
         }
         case JOIN_GAME:{
             const { username, token } = payload;
-        
-            return {
-                ...state,
-                ['123abc']: {
-                    ...state['123abc'],
-                    join_username: username, 
+            if(state[token])
+                return {
+                    ...state,
+                    ['123abc']: {
+                        ...state['123abc'],
+                        join_username: username, 
+                    }
                 }
-            }
         }
         default:
             return state;
