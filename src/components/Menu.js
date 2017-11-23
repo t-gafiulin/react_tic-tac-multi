@@ -17,7 +17,7 @@ class Menu extends Component {
 // /export default Menu;
 
 export default connect(
-  state => {
-    state: state.game
-  }
+  state => ({
+    state: state,
+  })
 )(Menu);
