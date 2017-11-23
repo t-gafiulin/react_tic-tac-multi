@@ -12,7 +12,7 @@ export default function game ( state = initialState, action ){
     const { type, payload } = action;
 
     switch ( type ){
-        case CREATE_GAME:
+        case CREATE_GAME:{
             const { username, size } = payload;
 
             return {
@@ -23,17 +23,18 @@ export default function game ( state = initialState, action ){
                     size_gamefield: size
                 }
             }
-
-        case JOIN_GAME:
+        }
+        case JOIN_GAME:{
             const { username, token } = payload;
         
-                    return {
-                        ...state,
-                        ['123abc']: {
-                            ...state['123abc'],
-                            join_username: username, 
-                        }
-                    }
+            return {
+                ...state,
+                ['123abc']: {
+                    ...state['123abc'],
+                    join_username: username, 
+                }
+            }
+        }
         default:
             return state;
     }
