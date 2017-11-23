@@ -13,12 +13,13 @@ export default function game ( state = initialState, action ){
 
     switch ( type ){
         case CREATE_GAME:{
+            let token = generateToken;
             const { username, size } = payload;
 
             return {
                 ...state,
-                ['123abc']: {
-                    ...state['123abc'],
+                [token]: {
+                    ...state[token],
                     create_username: username, 
                     size_gamefield: size
                 }
@@ -29,8 +30,8 @@ export default function game ( state = initialState, action ){
             if(state[token])
                 return {
                     ...state,
-                    ['123abc']: {
-                        ...state['123abc'],
+                    [token]: {
+                        ...state[token],
                         join_username: username, 
                     }
                 }
@@ -39,3 +40,8 @@ export default function game ( state = initialState, action ){
             return state;
     }
 }
+
+
+function generateToken() {
+    return Math.random().toString(36).substr(2);
+};
