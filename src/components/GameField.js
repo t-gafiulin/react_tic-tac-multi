@@ -11,8 +11,9 @@ class GameField extends Component {
 
         return <div className="gamefield-block">
             <div>Creator: { create_username }</div>
-            <div>Creator: { join_username }</div>
-            <div>Creator: { size_gamefield }</div>
+            <div>Join: { join_username }</div>
+            <div>Size: { size_gamefield }</div>
+            <div>Game token: { params.token }</div>
             <Link to="/"><button className="nav">Exit Game</button></Link>
 
         </div>;

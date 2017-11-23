@@ -1,11 +1,12 @@
 import { CREATE_GAME, JOIN_GAME } from '../constants';
 
-export function createGame(username, size){
+export function createGame(username, size, token){
     return {
         type: CREATE_GAME,
         payload: {
             size: size,
             username: username,
+            token: token,
         }
     }
 }
