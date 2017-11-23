@@ -11,6 +11,10 @@ class JoinGame extends Component {
         this.setState({[param]: event.target.value});
     }
 
+    handleClick(){
+        console.log(this.state.username, this.state.game_token);
+    }
+
     render() {
         return <div className="join-game-block">
                 <input 
@@ -23,7 +27,14 @@ class JoinGame extends Component {
                     placeholder="Game token" 
                     onChange={this.handleChange.bind(this, "game_token")}
                 />
-                <Link to="/startGame"><button className="nav">Start Game</button></Link>
+                <Link to="/startGame">
+                    <button 
+                        className="nav" 
+                        onClick={this.handleClick.bind(this)}
+                    >    
+                    Join Game     
+                    </button>
+                </Link>
             </div>;
     }
 }

@@ -11,6 +11,10 @@ class NewGame extends Component {
         this.setState({[param]: event.target.value});
     }
 
+    handleClick(){
+        console.log(this.state.username, this.state.size);
+    }
+
     render() {
         return <div className="new-game-block">
                 <input 
@@ -23,7 +27,14 @@ class NewGame extends Component {
                     placeholder="Size of Game Field"
                     onChange={this.handleChange.bind(this, "size")}
                 />
-                <Link to="/startGame"><button className="nav">Start Game</button></Link>
+                <Link to="/startGame">
+                    <button 
+                        className="nav" 
+                        onClick={this.handleClick.bind(this)}
+                    >    
+                    Start Game     
+                    </button>
+                </Link>
             </div>;
     }
 }
