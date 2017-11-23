@@ -42,8 +42,6 @@ class NewGame extends Component {
     }
 }
 
-//export default NewGame;
-
 export default connect(
     null,
     { createGame }

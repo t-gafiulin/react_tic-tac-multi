@@ -42,8 +42,6 @@ class JoinGame extends Component {
     }
 }
 
-// export default JoinGame;
-
 export default connect(
     null,
     { joinGame }
