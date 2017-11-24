@@ -10,15 +10,18 @@ class NewGame extends Component {
         token: "",
     }
 
+    componentWillMount(){
+        let new_token = this.generateToken(8);
+        this.setState({token: new_token})
+    }
+
     handleChange(param, event){
         this.setState({[param]: event.target.value});
     }
 
     handleClick(){
-        const { username, size } = this.state;
-        let new_token = this.generateToken(8);
-        this.setState({token: new_token})
-        this.props.createGame(username, size, new_token);
+        const { username, size, token } = this.state;
+        this.props.createGame(username, size, token);
     }
 
     generateToken(length) {
