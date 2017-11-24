@@ -35,7 +35,6 @@ class NewGame extends Component {
     };
 
     render() {
-        console.log(this.state);
         return <div className="new-game-block">
                 <input 
                     className="new-game-block__input" 
@@ -47,7 +46,7 @@ class NewGame extends Component {
                     placeholder="Size of Game Field"
                     onChange={this.handleChange.bind(this, "size")}
                 />
-                <Link to={"/startGame/create/" + this.state.token}>
+                <Link to={"/startGame/" + this.state.token}>
                     <button 
                         className="nav" 
                         onClick={this.handleClick.bind(this)}

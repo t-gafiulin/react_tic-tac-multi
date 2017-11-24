@@ -30,7 +30,7 @@ class JoinGame extends Component {
                     placeholder="Game token" 
                     onChange={this.handleChange.bind(this, "game_token")}
                 />
-                <Link to={"/startGame/join"}>
+                <Link to={"/startGame/" + this.state.game_token}>
                     <button 
                         className="nav" 
                         onClick={this.handleClick.bind(this)}

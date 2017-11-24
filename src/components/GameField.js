@@ -6,8 +6,9 @@ class GameField extends Component {
 
     render() {
         const params = this.props.match.params;
-        const { create_username, join_username, size_gamefield } = this.props.game['123abc'];
-        console.log(this.props.game['123abc']);
+
+        const { create_username, join_username, size_gamefield } = this.props.game[params.token];
+        //console.log(this.props.game[params.token], this.props.game,  params.token);
 
         return <div className="gamefield-block">
             <div>Creator: { create_username }</div>
