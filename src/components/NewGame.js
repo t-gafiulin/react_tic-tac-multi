@@ -7,7 +7,7 @@ class NewGame extends Component {
     state = {
         username: "",
         size: "",
-        token: "3",
+        token: "",
     }
 
     handleChange(param, event){
@@ -17,7 +17,7 @@ class NewGame extends Component {
     handleClick(){
         const { username, size } = this.state;
         let new_token = this.generateToken(8);
-        this.setState({token: 3})
+        this.setState({token: new_token})
         this.props.createGame(username, size, new_token);
     }
 
@@ -44,7 +44,7 @@ class NewGame extends Component {
                     placeholder="Size of Game Field"
                     onChange={this.handleChange.bind(this, "size")}
                 />
-                <Link to={"/startGame/" + this.state.token}>
+                <Link to={"/startGame/create/" + this.state.token}>
                     <button 
                         className="nav" 
                         onClick={this.handleClick.bind(this)}
