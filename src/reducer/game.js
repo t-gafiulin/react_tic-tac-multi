@@ -1,12 +1,6 @@
 import { CREATE_GAME, JOIN_GAME } from '../constants';
 
-const initialState = {
-    '123abc': {
-        create_username: '',
-        join_username: '',
-        size_gamefield: ''  
-    },
-}
+const initialState = {}
 
 export default function game ( state = initialState, action ){
     const { type, payload } = action;
