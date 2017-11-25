@@ -17,7 +17,7 @@ body,
     border: none;
 }
 
-.gamefield-block{
+.gameinfo-block{
     height: 100px;
     margin-top: -150px;
 }

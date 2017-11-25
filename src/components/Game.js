@@ -13,7 +13,7 @@ class Game extends Component {
 
         return <div className="game">
             <GameField size={size_gamefield}/>
-            <div className="gamefield-block">
+            <div className="gameinfo-block">
                 <div>Creator: { create_username }</div>
                 <div>Join: { join_username }</div>
                 <div>Size: { size_gamefield }</div>
