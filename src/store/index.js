@@ -1,23 +1,3 @@
-
-// import { createStore, applyMiddleware } from 'redux';
-// import reducer from '../reducer';
-// import { createLogger } from 'redux-logger';
-
-// const logger = createLogger({
-//     level: "info",
-//     collapsed: true,
-//   });
-
-// const store = createStore(reducer, applyMiddleware(logger));
-
-// if (module.hot) {
-//   module.hot.accept("../reducer", () =>
-//     store.replaceReducer(require("../reducer")), // eslint-disable-line global-require
-//   );
-// }
-
-// export default store;
-
 import { createBrowserHistory } from "history";
 import { routerMiddleware } from "react-router-redux";
 import { applyMiddleware, compose, createStore } from "redux";
