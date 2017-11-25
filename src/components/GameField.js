@@ -116,9 +116,10 @@ class GameField extends Component{
 
 
         return <div className="field">
-            {squares}
-            {winner !== 0 ? <div className='winner-field'>{winner}</div> : ''}
-            
+            <div className="game-block">
+                {squares}
+                {this.state.winner !== 0 ? <div className='winner-field'>{winner}</div> : ''}
+            </div>
         </div> ;
     }
 }
