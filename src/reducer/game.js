@@ -33,10 +33,11 @@ export default function game ( state = initialState, action ){
                     join_username: username, 
                 }
             }
-            setItemLocalStorage(new_state);
 
-            if(state[token])
+            if(state[token]){
+                setItemLocalStorage(new_state);
                 return new_state;
+            }
         }
         default:
             return state;
