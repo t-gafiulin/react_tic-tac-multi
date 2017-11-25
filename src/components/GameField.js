@@ -100,7 +100,6 @@ class GameField extends Component{
 
 
     render(){
-        console.log(this);
         const winner = this.state.winner !== 0 ? 'Player ' + (this.state.winner) + ' win' : '';
         const squares = [];
 

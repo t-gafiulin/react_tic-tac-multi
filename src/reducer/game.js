@@ -37,7 +37,10 @@ export default function game ( state = initialState, action ){
             if(state[token]){
                 setItemLocalStorage(new_state);
                 return new_state;
+            }else{
+                return state;
             }
+            
         }
         default:
             return state;
