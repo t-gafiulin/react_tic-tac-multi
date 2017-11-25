@@ -1,14 +1,8 @@
 import { CREATE_GAME, JOIN_GAME } from '../constants';
 
-const initialState = (sessionStorage.getItem('game')) ? 
-                        JSON.parse(sessionStorage.getItem('game')) : 
+const initialState = getItemLocalStorage() ? 
+                        getItemLocalStorage() : 
                         {};
-
-// var q = {b: 3,c: 4}
-// var serialq = JSON.stringify(q)
-// sessionStorage.setItem('a', serialq)
-// var returnq = JSON.parse(sessionStorage.getItem('a'));
-// console.log(returnq.c);
 
 export default function game ( state = initialState, action ){
     const { type, payload } = action;
@@ -17,7 +11,7 @@ export default function game ( state = initialState, action ){
         case CREATE_GAME:{
             const { username, size, token } = payload;
 
-            return {
+            const new_state = {
                 ...state,
                 [token]: {
                     ...state[token],
@@ -25,19 +19,36 @@ export default function game ( state = initialState, action ){
                     size_gamefield: size
                 }
             }
+            setItemLocalStorage(new_state);
+
+            return new_state;
         }
         case JOIN_GAME:{
             const { username, token } = payload;
-            if(state[token])
-                return {
-                    ...state,
-                    [token]: {
-                        ...state[token],
-                        join_username: username, 
-                    }
+
+            const new_state = {
+                ...state,
+                [token]: {
+                    ...state[token],
+                    join_username: username, 
                 }
+            }
+            setItemLocalStorage(new_state);
+
+            if(state[token])
+                return new_state;
         }
         default:
             return state;
     }
+}
+
+
+function setItemLocalStorage(gameState){
+    let serialGameState = JSON.stringify(gameState);
+    localStorage.setItem('gameState', serialGameState);
+}
+
+function getItemLocalStorage(){
+    return JSON.parse(localStorage.getItem('gameState'));
 }
