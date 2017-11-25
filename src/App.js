@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import GameField from './components/GameField';
+import Game from './components/Game';
 import JoinGame from './components/JoinGame';
 import Menu from './components/Menu';
 import NewGame from './components/NewGame';
@@ -15,7 +15,7 @@ class App extends Component {
             <Route exact path="/" component={Menu} />
             <Route path="/newGame" component={NewGame} />
             <Route path="/joinGame" component={JoinGame} />
-            <Route path="/startGame/:token" component={GameField} /> 
+            <Route path="/startGame/:token" component={Game} /> 
         </Switch>
       </Router> 
     );

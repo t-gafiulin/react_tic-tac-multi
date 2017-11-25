@@ -49,7 +49,7 @@ function setItemLocalStorage(gameState){
     let serialGameState = JSON.stringify(gameState);
     localStorage.setItem('gameState', serialGameState);
 }
-
+    
 function getItemLocalStorage(){
     return JSON.parse(localStorage.getItem('gameState'));
 }
