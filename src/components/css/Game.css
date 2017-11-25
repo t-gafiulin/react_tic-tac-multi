@@ -1,0 +1,38 @@
+html,
+body,
+.game{
+    height: 100%;
+}
+
+.field{
+    box-sizing: border-box;
+    min-height: 100%;
+    padding-bottom: 100px;
+    margin: auto;
+    padding-top: 100px;
+    width: 300px;
+    border: none;
+}
+
+.gamefield-block{
+    height: 100px;
+    margin-top: -150px;
+}
+  
+.square{
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    font-size: 40px;
+}
+
+.winner-field{
+    margin-top: 20px;
+    padding: 10px;
+    text-transform: uppercase;
+    color: #514ED9;
+    font-size: 25px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 20px;
+}
