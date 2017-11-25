@@ -1,4 +1,4 @@
-import { CREATE_GAME, JOIN_GAME } from '../constants';
+import { CREATE_GAME, JOIN_GAME, MAKE_A_MOVE } from '../constants';
 
 const initialState = getItemLocalStorage() ? 
                         getItemLocalStorage() : 
@@ -42,6 +42,19 @@ export default function game ( state = initialState, action ){
             }
             
         }
+        case MAKE_A_MOVE:
+            const { token, current_field } = payload;
+        
+            const new_state = {
+                ...state,
+                [token]: {
+                    ...state[token],
+                    current_field: current_field
+                }
+            }
+            setItemLocalStorage(new_state);
+
+            return new_state;
         default:
             return state;
     }
