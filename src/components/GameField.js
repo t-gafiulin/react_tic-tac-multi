@@ -8,11 +8,11 @@ class GameField extends Component{
 
     constructor(props){
         super(props);
-        setInterval(() => {
-            console.log('props', props.game[props.token]);
-            console.log(this.state.current_state);
-            this.props.makeMove(this.props.token, this.state.current_state);
-        }, 4000);
+        // setInterval(() => {
+        //     console.log('props', props.game[props.token]);
+        //     console.log(this.state.current_state);
+        //     this.props.makeMove(this.props.token, this.state.current_state);
+        // }, 4000);
     }
 
     state = {
@@ -26,18 +26,18 @@ class GameField extends Component{
 
     componentDidMount(){
         const { size } = this.props;
-        let temp_state = [];
+        var temp_state = [];
 
-        for(var i = 0; i < size * size; i++){
+        for(var i = 0; i < size; i++){
             temp_state[i] = [];
             for(var j = 0; j < size; j++){
-                temp_state[i].push();
+                temp_state[i][j] = ' ';
             }
         }
         
-
-        this.setState({current_state: temp_state});
         console.log(temp_state);
+        this.setState({current_state: temp_state});
+        // /console.log(temp_state);
 
 
         /* winner combination */
@@ -86,17 +86,17 @@ class GameField extends Component{
     }
 
     handleClick(index){
-        if(this.state.winner === 0){
-            if(this.state.current_state[index] === ' '){
-                var field = this.state.current_state;
-                field[index] = this.state.player === 1 ? 'X' : 'O';
-                this.setState({current_state: field, player: this.state.player === 1 ? 2 : 1});
-                //this.checkWinner(this.state.player);
-            }
+        // if(this.state.winner === 0){
+        //     if(this.state.current_state[index] === ' '){
+        //         var field = this.state.current_state;
+        //         field[index] = this.state.player === 1 ? 'X' : 'O';
+        //         this.setState({current_state: field, player: this.state.player === 1 ? 2 : 1});
+        //         //this.checkWinner(this.state.player);
+        //     }
         
-        }  
+        // }  
         
-        this.props.makeMove(this.props.token, this.state.current_state);
+        //this.props.makeMove(this.props.token, this.state.current_state);
     }
 
     componentWillReceiveProps(nextProps){
@@ -104,10 +104,6 @@ class GameField extends Component{
         if(nextProps.game[this.props.token].current_field){
             this.setState({current_state: nextProps.game[this.props.token].current_field});
         }
-    }
-
-    getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
     }
 
     checkWinner(player){
@@ -140,13 +136,18 @@ class GameField extends Component{
 
         const { size } = this.props;
 
-        for(let i = 0; i < size * size; i++){
-            squares.push(<Square key={i}
-            index={i} 
-            handleClick={this.handleClick.bind(this)} 
-            val={(this.state.current_state[i])}
-            squaresWidth={100/size}
-            />)
+        if(this.state.current_state[0]){    
+            for(let i = 0; i < size; i++){
+                for(let j = 0; j < size; j++){
+                    squares.push(
+                    <Square 
+                        key={i*size + j} row={i} col={j}
+                        handleClick={this.handleClick.bind(this)} 
+                        val={this.state.current_state[i][j]}
+                        squaresWidth={100/size}
+                    />)
+                }
+            }
         }
 
 
