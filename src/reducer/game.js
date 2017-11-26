@@ -3,6 +3,7 @@ import { CREATE_GAME, JOIN_GAME, MAKE_A_MOVE } from '../constants';
 const initialState = getItemLocalStorage() ? 
                         getItemLocalStorage() : 
                         {};
+// /const initialState = {};
 
 export default function game ( state = initialState, action ){
     const { type, payload } = action;
@@ -11,10 +12,11 @@ export default function game ( state = initialState, action ){
         case CREATE_GAME:{
             const { username, size, token } = payload;
 
-            const new_state = {
-                ...state,
+            let new_state = getItemLocalStorage();
+            new_state = {
+                ...new_state,
                 [token]: {
-                    ...state[token],
+                    ...new_state[token],
                     create_username: username, 
                     size_gamefield: size
                 }
@@ -26,15 +28,15 @@ export default function game ( state = initialState, action ){
         case JOIN_GAME:{
             const { username, token } = payload;
 
-            const new_state = {
-                ...state,
-                [token]: {
-                    ...state[token],
-                    join_username: username, 
+            let new_state = getItemLocalStorage();
+            if(new_state[token]){
+                new_state = {
+                    ...new_state,
+                    [token]: {
+                        ...new_state[token],
+                        join_username: username, 
+                    }
                 }
-            }
-
-            if(state[token]){
                 setItemLocalStorage(new_state);
                 return new_state;
             }else{
@@ -45,10 +47,11 @@ export default function game ( state = initialState, action ){
         case MAKE_A_MOVE:
             const { token, current_field } = payload;
         
-            const new_state = {
-                ...state,
+            let new_state = getItemLocalStorage();
+            new_state = {
+                ...new_state,
                 [token]: {
-                    ...state[token],
+                    ...new_state[token],
                     current_field: current_field
                 }
             }

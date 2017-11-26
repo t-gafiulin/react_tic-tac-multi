@@ -1,14 +1,26 @@
 import React, {Component} from 'react';
 import Square from './Square';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { makeMove } from '../AC';
 
 class GameField extends Component{
+
+    constructor(props){
+        super(props);
+        setInterval(() => {
+            console.log('props', props.game[props.token]);
+            console.log(this.state.current_state);
+            this.props.makeMove(this.props.token, this.state.current_state);
+        }, 4000);
+    }
 
     state = {
         current_state: [],
         player: 1,
         winner_combination: [],
-        winner: 0
+        winner: 0,
+        elapsed: 0,
     }
 
 
@@ -57,6 +69,11 @@ class GameField extends Component{
             temp_arr = [];
         }
         this.setState({winner_combination: temp_winner_arr});
+
+
+        if(this.props.game[this.props.token].current_field && this.props.game[this.props.token].current_field.length){
+            this.setState({current_state: this.props.game[this.props.token].current_field});
+        }
     }
 
     handleClick(index){
@@ -68,12 +85,21 @@ class GameField extends Component{
                 this.checkWinner(this.state.player);
             }
         
-        }    
+        }  
+        
+        this.props.makeMove(this.props.token, this.state.current_state);
+    }
+
+    componentWillReceiveProps(nextProps){
+        console.log('componentWillReceiveProps');
+        if(nextProps.game[this.props.token].current_field){
+            this.setState({current_state: nextProps.game[this.props.token].current_field});
+        }
     }
 
     getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
-      }
+    }
 
     checkWinner(player){
         const cur_sign = player === 1 ? 'X' : 'O';
@@ -129,4 +155,9 @@ GameField.PropTypes = {
     size: PropTypes.string,
 }
 
-export default GameField;
+export default connect (
+    state => ({
+        game: state.game,
+    }),
+    { makeMove }
+)(GameField);

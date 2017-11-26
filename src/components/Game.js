@@ -12,7 +12,7 @@ class Game extends Component {
         const { create_username, join_username, size_gamefield } = this.props.game[params.token];
 
         return <div className="game">
-            <GameField size={size_gamefield}/>
+            <GameField size={size_gamefield} token={params.token}/>
             <div className="gameinfo-block">
                 <div>Creator: { create_username }</div>
                 <div>Join: { join_username }</div>
