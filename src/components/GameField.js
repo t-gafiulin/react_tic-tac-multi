@@ -116,25 +116,32 @@ class GameField extends Component{
     }
 
     checkWinner(player){
+        const { size } = this.props;
         const cur_sign = player === 1 ? 'X' : 'O';
         const cur_state = this.state.current_state;
         const combination = this.state.winner_combination;
-        for(let i = 0; i < this.state.winner_combination.length; i++){
-            let winner_exist = 1;
-            for( var j = 0; j < this.props.size; j++){
-                if(cur_state[combination[i][j]] === cur_sign){
-                    winner_exist = winner_exist * 1;
-                }else{
-                    winner_exist = winner_exist * 0;
+
+        
+        combination.forEach(combination => {
+            let winner_exist = 1
+            for ( let i = 0; i < size; i++){
+                for ( let j = 0; j < size; j++){
+                    if (combination[i][j] === 1) {
+                        if (cur_state[i][j] === cur_sign){
+                            winner_exist = winner_exist * 1;
+                        }else{
+                            winner_exist = winner_exist * 0;
+                        }
+                    }
                 }
             }
-
+            
+            
             if(winner_exist === 1){
                 this.setState({winner: player})
                 return true;
             }
-                
-        }
+        });
         return false;
     }
 
