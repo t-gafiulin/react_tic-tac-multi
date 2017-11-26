@@ -26,63 +26,73 @@ class GameField extends Component{
 
     componentDidMount(){
         const { size } = this.props;
-        var temp_state = [];
+        var temp_state = this.fillZero();
 
-        for(var i = 0; i < size; i++){
-            temp_state[i] = [];
-            for(var j = 0; j < size; j++){
+        for(let i = 0; i < size; i++){
+            for(let j = 0; j < size; j++){
                 temp_state[i][j] = ' ';
             }
         }
         
-        console.log(temp_state);
         this.setState({current_state: temp_state});
-        // /console.log(temp_state);
-
 
         /* winner combination */
 
-        // let temp_arr = [];
-        // let temp_winner_arr = []
-        // for(var i = 0; i < size; i++){
-        //     for(var j = 0; j < size; j++){
-        //         if(i === j)
-        //             temp_arr.push(i + size*j);
-        //     }
-        // }
-        // temp_winner_arr.push(temp_arr);
-        // temp_arr = [];
+        let temp_arr = this.fillZero();
+        let temp_winner_arr = [];
+        for(let i = 0; i < size; i++){
+            for(let j = 0; j < size; j++){
+                if(i === j)
+                    temp_arr[i][j] = 1;
+            }
+        }
+        temp_winner_arr.push(temp_arr);
+        temp_arr = this.fillZero();
 
-        // for(let i = 0; i < size; i++){
-        //     for(let j = 0; j < size; j++){
-        //         if((size - 1) - i === j)
-        //             temp_arr.push(i + size*j);
-        //     }
-        // }
-        // temp_winner_arr.push(temp_arr.reverse());
-        // temp_arr = [];
+        for(let i = 0; i < size; i++){
+            for(let j = 0; j < size; j++){
+                if((size - 1) - i === j)
+                    temp_arr[i][j] = 1;
+            }
+        }
+        temp_winner_arr.push(temp_arr);
+        temp_arr = this.fillZero();
 
-        // for(let i = 0; i < size; i++){
-        //     for(let j = 0; j < size; j++){
-        //         temp_arr.push(size*i + j);
-        //     }
-        //     temp_winner_arr.push(temp_arr);
-        //     temp_arr = [];
-        // }
+        for(let i = 0; i < size; i++){
+            for(let j = 0; j < size; j++){
+                temp_arr[i][j] = 1;
+            }
+            temp_winner_arr.push(temp_arr);
+            temp_arr = this.fillZero();
+        }
 
-        // for(let i = 0; i < size; i++){
-        //     for(let j = 0; j < size; j++){
-        //             temp_arr.push(i + size*j);
-        //     }
-        //     temp_winner_arr.push(temp_arr);
-        //     temp_arr = [];
-        // }
-        // this.setState({winner_combination: temp_winner_arr});
-
+        temp_arr = this.fillZero();
+        for(let i = 0; i < size; i++){
+            for(let j = 0; j < size; j++){
+                    temp_arr[j][i] = 1;
+            }
+            temp_winner_arr.push(temp_arr);
+            temp_arr =this.fillZero();
+        }
+        this.setState({winner_combination: temp_winner_arr});
+        console.log(temp_winner_arr);
 
         // if(this.props.game[this.props.token].current_field && this.props.game[this.props.token].current_field.length){
         //     this.setState({current_state: this.props.game[this.props.token].current_field});
         // }
+    }
+
+    fillZero(){
+        const { size } = this.props;
+        const temp_arr = [];
+        for(let i = 0; i < size; i++){
+            temp_arr[i] = []
+            for(let j = 0; j < size; j++){
+                    temp_arr[i][j] = 0;
+            }
+        }
+
+        return temp_arr;
     }
 
     handleClick(row, col){
@@ -91,7 +101,7 @@ class GameField extends Component{
                 var field = this.state.current_state;
                 field[row][col] = this.state.player === 1 ? 'X' : 'O';
                 this.setState({current_state: field, player: this.state.player === 1 ? 2 : 1});
-                //this.checkWinner(this.state.player);
+                this.checkWinner(this.state.player);
             }
         }  
         
