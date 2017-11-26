@@ -85,16 +85,15 @@ class GameField extends Component{
         // }
     }
 
-    handleClick(index){
-        // if(this.state.winner === 0){
-        //     if(this.state.current_state[index] === ' '){
-        //         var field = this.state.current_state;
-        //         field[index] = this.state.player === 1 ? 'X' : 'O';
-        //         this.setState({current_state: field, player: this.state.player === 1 ? 2 : 1});
-        //         //this.checkWinner(this.state.player);
-        //     }
-        
-        // }  
+    handleClick(row, col){
+        if(this.state.winner === 0){
+            if(this.state.current_state[row][col] === ' '){
+                var field = this.state.current_state;
+                field[row][col] = this.state.player === 1 ? 'X' : 'O';
+                this.setState({current_state: field, player: this.state.player === 1 ? 2 : 1});
+                //this.checkWinner(this.state.player);
+            }
+        }  
         
         //this.props.makeMove(this.props.token, this.state.current_state);
     }
