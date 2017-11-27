@@ -32,3 +32,7 @@ export function makeMove(token, row, col, sign){
         }
     }
 }
+
+// export function getState(){
+//     return
+// }
