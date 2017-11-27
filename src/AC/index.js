@@ -21,7 +21,7 @@ export function joinGame(username, game_token){
     }
 }
 
-export function makeMove(token, row, col){
+export function makeMove(token, row, col, sign){
     return {
         type: MAKE_A_MOVE,
         payload: {

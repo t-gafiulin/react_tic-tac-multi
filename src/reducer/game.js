@@ -45,19 +45,25 @@ export default function game ( state = initialState, action ){
             
         }
         case MAKE_A_MOVE:
-            const { token, current_field } = payload;
+            const { token, row, col, sign } = payload;
         
             let new_state = getItemLocalStorage();
-            new_state = {
-                ...new_state,
-                [token]: {
-                    ...new_state[token],
-                    current_field: current_field
+
+            if(new_state.current_field[row][col] === ' '){
+                let curr_field = new_state[token].current_field;
+                curr_field[row][col] = sign;
+                new_state = {
+                    ...new_state,
+                    [token]: {
+                        ...new_state[token],
+                        current_field: curr_field
+                    }
                 }
             }
             setItemLocalStorage(new_state);
 
             return new_state;
+            
         default:
             return state;
     }
