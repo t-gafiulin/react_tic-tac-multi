@@ -2,16 +2,14 @@ import React, {Component} from 'react';
 import Square from './Square';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { makeMove } from '../AC';
+import { makeMove, getState } from '../AC';
 
 class GameField extends Component{
 
     constructor(props){
         super(props);
         setInterval(() => {
-            // console.log('props', props.game[props.token]);
-            // console.log(this.state.current_state);
-            // this.props.makeMove(this.props.token, this.state.current_state);
+            this.props.getState();
         }, 4000);
     }
 
@@ -80,9 +78,11 @@ class GameField extends Component{
         }
         this.setState({winner_combination: temp_winner_arr});
 
-        // if(this.props.game[this.props.token].current_field && this.props.game[this.props.token].current_field.length){
-        //     this.setState({current_state: this.props.game[this.props.token].current_field});
-        // }
+        if(this.props.game[this.props.token].current_field && this.props.game[this.props.token].current_field.length){
+            this.setState({current_state: this.props.game[this.props.token].current_field});
+
+            // this.checkWinner(this.state.player);
+        }
     }
 
     fillZero(){
@@ -113,9 +113,9 @@ class GameField extends Component{
     }
 
     componentWillReceiveProps(nextProps){
-        console.log('componentWillReceiveProps');
         if(nextProps.game[this.props.token].current_field){
             this.setState({current_state: nextProps.game[this.props.token].current_field});
+            this.checkWinner(this.state.player);
         }
     }
 
@@ -153,6 +153,7 @@ class GameField extends Component{
     render(){
         const winner = this.state.winner !== 0 ? 'Player ' + (this.state.winner) + ' win' : '';
         const squares = [];
+        console.log(this.state.winner);
 
         const { size } = this.props;
 
@@ -189,5 +190,5 @@ export default connect (
     state => ({
         game: state.game,
     }),
-    { makeMove }
+    { makeMove, getState }
 )(GameField);
