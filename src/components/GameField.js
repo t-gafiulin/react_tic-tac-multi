@@ -38,6 +38,7 @@ class GameField extends Component{
 
         /* winner combination */
 
+        /* diagonal */
         let temp_arr = this.fillZero();
         let temp_winner_arr = [];
         for(let i = 0; i < size; i++){
@@ -49,6 +50,7 @@ class GameField extends Component{
         temp_winner_arr.push(temp_arr);
         temp_arr = this.fillZero();
 
+        /* diagonal */
         for(let i = 0; i < size; i++){
             for(let j = 0; j < size; j++){
                 if((size - 1) - i === j)
@@ -58,6 +60,7 @@ class GameField extends Component{
         temp_winner_arr.push(temp_arr);
         temp_arr = this.fillZero();
 
+        /* gorizontal */
         for(let i = 0; i < size; i++){
             for(let j = 0; j < size; j++){
                 temp_arr[i][j] = 1;
@@ -66,6 +69,7 @@ class GameField extends Component{
             temp_arr = this.fillZero();
         }
 
+        /* vertical */
         temp_arr = this.fillZero();
         for(let i = 0; i < size; i++){
             for(let j = 0; j < size; j++){
