@@ -1,4 +1,4 @@
-import { CREATE_GAME, JOIN_GAME, MAKE_A_MOVE } from '../constants';
+import { CREATE_GAME, JOIN_GAME, MAKE_A_MOVE, GET_STATE } from '../constants';
 
 const initialState = getItemLocalStorage() ? 
                         getItemLocalStorage() : 
@@ -64,7 +64,11 @@ export default function game ( state = initialState, action ){
             setItemLocalStorage(new_state);
 
             return new_state;
-            
+
+        case GET_STATE: {
+            let new_state = getItemLocalStorage();
+            return new_state;
+        }
         default:
             return state;
     }
