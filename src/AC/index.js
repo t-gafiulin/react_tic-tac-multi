@@ -28,6 +28,7 @@ export function makeMove(token, row, col, sign){
             token: token,
             row: row,
             col: col,
+            sign: sign,
         }
     }
 }

@@ -18,7 +18,8 @@ export default function game ( state = initialState, action ){
                 [token]: {
                     ...new_state[token],
                     create_username: username, 
-                    size_gamefield: size
+                    size_gamefield: size,
+                    current_field: createFirstState(size)
                 }
             }
             setItemLocalStorage(new_state);
@@ -49,7 +50,7 @@ export default function game ( state = initialState, action ){
         
             let new_state = getItemLocalStorage();
 
-            if(new_state.current_field[row][col] === ' '){
+            if(!new_state[token].current_field[row][col] || new_state[token].current_field[row][col] === ' '){
                 let curr_field = new_state[token].current_field;
                 curr_field[row][col] = sign;
                 new_state = {
@@ -77,4 +78,16 @@ function setItemLocalStorage(gameState){
     
 function getItemLocalStorage(){
     return JSON.parse(localStorage.getItem('gameState'));
+}
+
+function createFirstState(size){
+    const temp_arr = [];
+    for(let i = 0; i < size; i++){
+        temp_arr[i] = []
+        for(let j = 0; j < size; j++){
+                temp_arr[i][j] = ' ';
+        }
+    }
+
+    return temp_arr;
 }

@@ -8,11 +8,11 @@ class GameField extends Component{
 
     constructor(props){
         super(props);
-        // setInterval(() => {
-        //     console.log('props', props.game[props.token]);
-        //     console.log(this.state.current_state);
-        //     this.props.makeMove(this.props.token, this.state.current_state);
-        // }, 4000);
+        setInterval(() => {
+            // console.log('props', props.game[props.token]);
+            // console.log(this.state.current_state);
+            // this.props.makeMove(this.props.token, this.state.current_state);
+        }, 4000);
     }
 
     state = {
@@ -79,7 +79,6 @@ class GameField extends Component{
             temp_arr =this.fillZero();
         }
         this.setState({winner_combination: temp_winner_arr});
-        console.log(temp_winner_arr);
 
         // if(this.props.game[this.props.token].current_field && this.props.game[this.props.token].current_field.length){
         //     this.setState({current_state: this.props.game[this.props.token].current_field});
@@ -100,16 +99,17 @@ class GameField extends Component{
     }
 
     handleClick(row, col){
+        let curr_sign = this.state.player === 1 ? 'X' : 'O'
         if(this.state.winner === 0){
             if(this.state.current_state[row][col] === ' '){
                 var field = this.state.current_state;
-                field[row][col] = this.state.player === 1 ? 'X' : 'O';
+                field[row][col] = curr_sign;
                 this.setState({current_state: field, player: this.state.player === 1 ? 2 : 1});
                 this.checkWinner(this.state.player);
             }
         }  
         
-        //this.props.makeMove(this.props.token, this.state.current_state);
+        this.props.makeMove(this.props.token, row, col, curr_sign);
     }
 
     componentWillReceiveProps(nextProps){
