@@ -99,16 +99,12 @@ class GameField extends Component{
     }
 
     handleClick(row, col){
-        let curr_sign = this.state.player === 1 ? 'X' : 'O'
         if(this.state.winner === 0){
             if(this.state.current_state[row][col] === ' '){
-                var field = this.state.current_state;
-                field[row][col] = curr_sign;
-                this.setState({current_state: field, player: this.state.player === 1 ? 2 : 1});
+                this.setState({player: this.state.player === 1 ? 2 : 1});
                 this.checkWinner(this.state.player);
             }
         }  
-        console.log(this);
         this.props.makeMove(this.props.token, row, col, this.props.username);
     }
 

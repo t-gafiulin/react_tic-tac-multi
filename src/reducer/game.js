@@ -49,7 +49,6 @@ export default function game ( state = initialState, action ){
             const { token, row, col, username } = payload;
         
             let new_state = getItemLocalStorage();
-            console.log(username, state[token].create_username)
             if(!new_state[token].current_field[row][col] || new_state[token].current_field[row][col] === ' '){
                 let curr_field = new_state[token].current_field;
                 curr_field[row][col] = (username === state[token].create_username ? 'X' : 'O');
