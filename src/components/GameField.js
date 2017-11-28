@@ -99,12 +99,12 @@ class GameField extends Component{
     }
 
     handleClick(row, col){
-        if(this.state.winner === 0){
-            if(this.state.current_state[row][col] === ' '){
-                this.setState({player: this.state.player === 1 ? 2 : 1});
-                this.checkWinner(this.state.player);
-            }
-        }  
+        // if(this.state.winner === 0){
+        //     if(this.state.current_state[row][col] === ' '){
+        //         this.setState({player: this.state.player === 1 ? 2 : 1});
+        //         this.checkWinner(this.state.player);
+        //     }
+        // }  
         this.props.makeMove(this.props.token, row, col, this.props.username);
     }
 
@@ -112,6 +112,11 @@ class GameField extends Component{
         if(nextProps.game[this.props.token].current_field){
             this.setState({current_state: nextProps.game[this.props.token].current_field});
             this.checkWinner(this.state.player);
+
+            if(this.state.winner === 0){
+                this.setState({player: this.state.player === 1 ? 2 : 1});
+                this.checkWinner(this.state.player);
+            }  
         }
     }
 
