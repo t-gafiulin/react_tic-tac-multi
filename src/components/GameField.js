@@ -108,8 +108,8 @@ class GameField extends Component{
                 this.checkWinner(this.state.player);
             }
         }  
-        
-        this.props.makeMove(this.props.token, row, col, curr_sign);
+        console.log(this);
+        this.props.makeMove(this.props.token, row, col, this.props.username);
     }
 
     componentWillReceiveProps(nextProps){
@@ -178,11 +178,6 @@ class GameField extends Component{
             </div>
         </div> ;
     }
-}
-
-GameField.PropTypes = {
-    vsComputer: PropTypes.bool,
-    size: PropTypes.string,
 }
 
 export default connect (
