@@ -15,15 +15,13 @@ class GameField extends Component{
 
     state = {
         current_state: [],
-        player: 1,
-        winner_combination: [],
         winner: 0,
         elapsed: 0,
     }
 
 
     componentDidMount(){
-        const { size } = this.props;
+        const { size, token, game } = this.props;
         var temp_state = this.fillZero();
 
         for(let i = 0; i < size; i++){
@@ -34,54 +32,8 @@ class GameField extends Component{
         
         this.setState({current_state: temp_state});
 
-        /* winner combination */
-
-        /* diagonal */
-        let temp_arr = this.fillZero();
-        let temp_winner_arr = [];
-        for(let i = 0; i < size; i++){
-            for(let j = 0; j < size; j++){
-                if(i === j)
-                    temp_arr[i][j] = 1;
-            }
-        }
-        temp_winner_arr.push(temp_arr);
-        temp_arr = this.fillZero();
-
-        /* diagonal */
-        for(let i = 0; i < size; i++){
-            for(let j = 0; j < size; j++){
-                if((size - 1) - i === j)
-                    temp_arr[i][j] = 1;
-            }
-        }
-        temp_winner_arr.push(temp_arr);
-        temp_arr = this.fillZero();
-
-        /* gorizontal */
-        for(let i = 0; i < size; i++){
-            for(let j = 0; j < size; j++){
-                temp_arr[i][j] = 1;
-            }
-            temp_winner_arr.push(temp_arr);
-            temp_arr = this.fillZero();
-        }
-
-        /* vertical */
-        temp_arr = this.fillZero();
-        for(let i = 0; i < size; i++){
-            for(let j = 0; j < size; j++){
-                    temp_arr[j][i] = 1;
-            }
-            temp_winner_arr.push(temp_arr);
-            temp_arr =this.fillZero();
-        }
-        this.setState({winner_combination: temp_winner_arr});
-
-        if(this.props.game[this.props.token].current_field && this.props.game[this.props.token].current_field.length){
-            this.setState({current_state: this.props.game[this.props.token].current_field});
-
-            // this.checkWinner(this.state.player);
+        if(game[token].current_field && game[token].current_field.length){
+            this.setState({current_state: game[token].current_field});
         }
     }
 
@@ -98,58 +50,73 @@ class GameField extends Component{
         return temp_arr;
     }
 
-    handleClick(row, col){
-        // if(this.state.winner === 0){
-        //     if(this.state.current_state[row][col] === ' '){
-        //         this.setState({player: this.state.player === 1 ? 2 : 1});
-        //         this.checkWinner(this.state.player);
-        //     }
-        // }  
+    handleClick(row, col){  
         this.props.makeMove(this.props.token, row, col, this.props.username);
+        this.checkWinner(row, col);
     }
 
     componentWillReceiveProps(nextProps){
         if(nextProps.game[this.props.token].current_field){
             this.setState({current_state: nextProps.game[this.props.token].current_field});
-            this.checkWinner(this.state.player);
-
-            if(this.state.winner === 0){
-                this.setState({player: this.state.player === 1 ? 2 : 1});
-                this.checkWinner(this.state.player);
-            }  
         }
     }
 
-    checkWinner(player){
+    checkWinner(row, col){
+        
         const { size } = this.props;
-        const cur_sign = player === 1 ? 'X' : 'O';
+        const cur_sign = this.props.username === this.props.game[this.props.token].create_username ? 'X' : 'O';
         const cur_state = this.state.current_state;
-        const combination = this.state.winner_combination;
+        cur_state[row][col] = cur_sign;
+
+        let winner_col = 1, winner_row = 1;
+        for ( let i = 0; i < size; i++){
+            if(cur_state[i][col] !== cur_sign){
+                winner_col *= 0;
+            }
+        }
+        if(winner_col){
+            this.setState({winner: this.props.username})
+            return true;
+        }
+
+        for ( let i = 0; i < size; i++){
+            if(cur_state[row][i] !== cur_sign){
+                winner_row *= 0;
+            }
+        }
+        if(winner_row){
+            this.setState({winner: this.props.username})
+            return true;
+        }   
 
         
-        combination.forEach(combination => {
-            let winner_exist = 1
+        if(row === col){
+            let winner_diagonal = 1    
             for ( let i = 0; i < size; i++){
-                for ( let j = 0; j < size; j++){
-                    if (combination[i][j] === 1) {
-                        if (cur_state[i][j] === cur_sign){
-                            winner_exist = winner_exist * 1;
-                        }else{
-                            winner_exist = winner_exist * 0;
-                        }
-                    }
+                if(cur_state[i][i] !== cur_sign){
+                    winner_diagonal *= 0;
                 }
             }
-            
-            
-            if(winner_exist === 1){
-                this.setState({winner: player})
+            if(winner_diagonal){
+                this.setState({winner: this.props.username})
                 return true;
             }
-        });
+        }
+
+        if(row === (size - 1) - col){
+            let winner_diagonal = 1    
+            for ( let i = 0; i < size; i++){
+                if(cur_state[i][size - 1 - i] !== cur_sign){
+                    winner_diagonal *= 0;
+                }
+            }
+            if(winner_diagonal){
+                this.setState({winner: this.props.username})
+                return true;
+            }
+        }
         return false;
     }
-
 
     render(){
         const winner = this.state.winner !== 0 ? 'Player ' + (this.state.winner) + ' win' : '';
