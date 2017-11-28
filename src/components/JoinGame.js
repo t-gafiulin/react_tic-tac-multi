@@ -19,6 +19,7 @@ class JoinGame extends Component {
     }
 
     render() {
+        const { username, game_token } = this.state;
         return <div className="join-game-block">
                 <input 
                     className="join-game-block__input" 
@@ -30,7 +31,7 @@ class JoinGame extends Component {
                     placeholder="Game token" 
                     onChange={this.handleChange.bind(this, "game_token")}
                 />
-                <Link to={"/startGame/" + this.state.game_token}>
+                <Link to={`/startGame/${game_token}/${username}`}>
                     <button 
                         className="nav" 
                         onClick={this.handleClick.bind(this)}

@@ -153,7 +153,6 @@ class GameField extends Component{
     render(){
         const winner = this.state.winner !== 0 ? 'Player ' + (this.state.winner) + ' win' : '';
         const squares = [];
-        console.log(this.state.winner);
 
         const { size } = this.props;
 

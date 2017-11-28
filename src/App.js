@@ -17,7 +17,7 @@ class App extends Component {
             <Route exact path="/" component={Menu} />
             <Route path="/newGame" component={NewGame} />
             <Route path="/joinGame" component={JoinGame} />
-            <Route path="/startGame/:token" component={Game} /> 
+            <Route path="/startGame/:token/:username" component={Game} /> 
         </Switch>
       </Router> 
     );
