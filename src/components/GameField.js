@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Square from './Square';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { makeMove, getState } from '../AC';
 
@@ -51,8 +50,10 @@ class GameField extends Component{
     }
 
     handleClick(row, col){  
-        this.props.makeMove(this.props.token, row, col, this.props.username);
-        this.checkWinner(row, col);
+        if (this.state.winner == 0) {
+            this.props.makeMove(this.props.token, row, col, this.props.username);
+            this.checkWinner(row, col);
+        }
     }
 
     componentWillReceiveProps(nextProps){
