@@ -18,6 +18,7 @@ export default function game ( state = initialState, action ){
                 [token]: {
                     ...new_state[token],
                     create_username: username, 
+                    turn: username,
                     size_gamefield: size,
                     current_field: createFirstState(size)
                 }
@@ -49,18 +50,22 @@ export default function game ( state = initialState, action ){
             const { token, row, col, username } = payload;
         
             let new_state = getItemLocalStorage();
-            if(!new_state[token].current_field[row][col] || new_state[token].current_field[row][col] === ' '){
-                let curr_field = new_state[token].current_field;
-                curr_field[row][col] = (username === state[token].create_username ? 'X' : 'O');
-                new_state = {
-                    ...new_state,
-                    [token]: {
-                        ...new_state[token],
-                        current_field: curr_field
+            if(username === new_state[token].turn){
+                if(!new_state[token].current_field[row][col] || new_state[token].current_field[row][col] === ' '){
+                    let curr_field = new_state[token].current_field;
+                    let next_turn = username === new_state[token].create_username ? new_state[token].join_username : new_state[token].create_username;
+                    curr_field[row][col] = (username === new_state[token].create_username ? 'X' : 'O');
+                    new_state = {
+                        ...new_state,
+                        [token]: {
+                            ...new_state[token],
+                            turn: next_turn,
+                            current_field: curr_field
+                        }
                     }
                 }
+                setItemLocalStorage(new_state);
             }
-            setItemLocalStorage(new_state);
 
             return new_state;
 

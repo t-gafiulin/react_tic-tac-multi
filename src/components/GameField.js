@@ -50,7 +50,7 @@ class GameField extends Component{
     }
 
     handleClick(row, col){  
-        if (this.state.winner == 0) {
+        if (this.state.winner === 0) {
             this.props.makeMove(this.props.token, row, col, this.props.username);
             this.checkWinner(row, col);
         }
