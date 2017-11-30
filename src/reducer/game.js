@@ -1,9 +1,6 @@
 import { CREATE_GAME, JOIN_GAME, MAKE_A_MOVE, GET_STATE } from '../constants';
 
-const initialState = getItemLocalStorage() ? 
-                        getItemLocalStorage() : 
-                        {};
-// /const initialState = {};
+const initialState = getItemLocalStorage() ? getItemLocalStorage() : {};
 
 export default function game ( state = initialState, action ){
     const { type, payload } = action;
@@ -53,8 +50,9 @@ export default function game ( state = initialState, action ){
             if(username === new_state[token].turn){
                 if(!new_state[token].current_field[row][col] || new_state[token].current_field[row][col] === ' '){
                     let curr_field = new_state[token].current_field;
-                    let next_turn = username === new_state[token].create_username ? new_state[token].join_username : new_state[token].create_username;
-                    curr_field[row][col] = (username === new_state[token].create_username ? 'X' : 'O');
+                    let condition = username === new_state[token].create_username
+                    let next_turn = condition ? new_state[token].join_username : new_state[token].create_username;
+                    curr_field[row][col] = (condition ? 'X' : 'O');
                     new_state = {
                         ...new_state,
                         [token]: {

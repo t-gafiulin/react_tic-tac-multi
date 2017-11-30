@@ -1,4 +1,4 @@
-import { CREATE_GAME, JOIN_GAME, MAKE_A_MOVE, GET_STATE } from '../constants';
+import { CREATE_GAME, JOIN_GAME, MAKE_A_MOVE, GET_STATE, SET_WINNER } from '../constants';
 
 export function createGame(username, size, token){
     return {
@@ -36,5 +36,12 @@ export function makeMove(token, row, col, username){
 export function getState(){
     return {
         type: GET_STATE,
+    }
+}
+
+export function setWinner(winner) {
+    return {
+        type: SET_WINNER,
+        winner: winner
     }
 }
