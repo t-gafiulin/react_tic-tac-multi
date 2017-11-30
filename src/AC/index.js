@@ -42,6 +42,8 @@ export function getState(){
 export function setWinner(winner) {
     return {
         type: SET_WINNER,
-        winner: winner
+        payload: {
+            winner: winner,
+        }
     }
 }

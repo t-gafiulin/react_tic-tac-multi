@@ -1,4 +1,4 @@
-import { CREATE_GAME, JOIN_GAME, MAKE_A_MOVE, GET_STATE } from '../constants';
+import { CREATE_GAME, JOIN_GAME, MAKE_A_MOVE, GET_STATE, SET_WINNER } from '../constants';
 
 const initialState = getItemLocalStorage() ? getItemLocalStorage() : {};
 
@@ -70,6 +70,24 @@ export default function game ( state = initialState, action ){
         case GET_STATE: {
             let new_state = getItemLocalStorage();
             return new_state;
+        }
+
+        case SET_WINNER: {
+            const { winner } = payload;
+            let new_state = getItemLocalStorage();
+            if(new_state[token]){
+                new_state = {
+                    ...new_state,
+                    [token]: {
+                        ...new_state[token],
+                        winner: winner, 
+                    }
+                }
+                setItemLocalStorage(new_state);
+                return new_state;
+            }else{
+                return state;
+            }
         }
         default:
             return state;
