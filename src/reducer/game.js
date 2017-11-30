@@ -73,7 +73,7 @@ export default function game ( state = initialState, action ){
         }
 
         case SET_WINNER: {
-            const { winner } = payload;
+            const { winner, token } = payload;
             let new_state = getItemLocalStorage();
             if(new_state[token]){
                 new_state = {

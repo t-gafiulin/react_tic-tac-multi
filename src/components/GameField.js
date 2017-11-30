@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Square from './Square';
 import { connect } from 'react-redux';
-import { makeMove, getState } from '../AC';
+import { makeMove, getState, setWinner } from '../AC';
 
 class GameField extends Component{
 
@@ -14,8 +14,6 @@ class GameField extends Component{
 
     state = {
         current_state: [],
-        winner: 0,
-        elapsed: 0,
     }
 
 
@@ -50,7 +48,7 @@ class GameField extends Component{
     }
 
     handleClick(row, col){  
-        if (this.state.winner === 0) {
+        if (!this.props.game[this.props.token].winner) {
             this.props.makeMove(this.props.token, row, col, this.props.username);
             this.checkWinner(row, col);
         }
@@ -76,8 +74,8 @@ class GameField extends Component{
             }
         }
         if(winner_col){
-            this.setState({winner: this.props.username})
-            return true;
+            this.props.setWinner(this.props.username, this.props.token);
+            return;
         }
 
         for ( let i = 0; i < size; i++){
@@ -86,8 +84,8 @@ class GameField extends Component{
             }
         }
         if(winner_row){
-            this.setState({winner: this.props.username})
-            return true;
+            this.props.setWinner(this.props.username, this.props.token);
+            return;
         }   
 
         
@@ -99,8 +97,8 @@ class GameField extends Component{
                 }
             }
             if(winner_diagonal){
-                this.setState({winner: this.props.username})
-                return true;
+                this.props.setWinner(this.props.username, this.props.token);
+                return;
             }
         }
 
@@ -112,18 +110,17 @@ class GameField extends Component{
                 }
             }
             if(winner_diagonal){
-                this.setState({winner: this.props.username})
-                return true;
+                this.props.setWinner(this.props.username, this.props.token);
+                return;
             }
         }
-        return false;
+        return;
     }
 
     render(){
-        const winner = this.state.winner !== 0 ? 'Player ' + (this.state.winner) + ' win' : '';
+        const { size, token, game } = this.props;
+        const winner = game[token].winner ? 'Player ' + (game[token].winner) + ' win' : '';
         const squares = [];
-
-        const { size } = this.props;
 
         if(this.state.current_state[0]){    
             for(let i = 0; i < size; i++){
@@ -143,7 +140,7 @@ class GameField extends Component{
         return <div className="field">
             <div className="game-block">
                 {squares}
-                {this.state.winner !== 0 ? <div className='winner-field'>{winner}</div> : ''}
+                {game[token].winner ? <div className='winner-field'>{winner}</div> : ''}
             </div>
         </div> ;
     }
@@ -153,5 +150,5 @@ export default connect (
     state => ({
         game: state.game,
     }),
-    { makeMove, getState }
+    { makeMove, getState, setWinner }
 )(GameField);

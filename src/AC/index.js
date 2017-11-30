@@ -39,11 +39,12 @@ export function getState(){
     }
 }
 
-export function setWinner(winner) {
+export function setWinner(winner, token) {
     return {
         type: SET_WINNER,
         payload: {
             winner: winner,
+            token: token,
         }
     }
 }
