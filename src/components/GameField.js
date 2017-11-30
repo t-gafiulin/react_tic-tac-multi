@@ -12,28 +12,6 @@ class GameField extends Component{
         }, 4000);
     }
 
-    state = {
-        current_state: [],
-    }
-
-
-    componentDidMount(){
-        const { size, token, game } = this.props;
-        var temp_state = this.fillZero();
-
-        for(let i = 0; i < size; i++){
-            for(let j = 0; j < size; j++){
-                temp_state[i][j] = ' ';
-            }
-        }
-        
-        this.setState({current_state: temp_state});
-
-        if(game[token].current_field && game[token].current_field.length){
-            this.setState({current_state: game[token].current_field});
-        }
-    }
-
     fillZero(){
         const { size } = this.props;
         const temp_arr = [];
@@ -54,17 +32,10 @@ class GameField extends Component{
         }
     }
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps.game[this.props.token].current_field){
-            this.setState({current_state: nextProps.game[this.props.token].current_field});
-        }
-    }
-
     checkWinner(row, col){
-        
-        const { size } = this.props;
-        const cur_sign = this.props.username === this.props.game[this.props.token].create_username ? 'X' : 'O';
-        const cur_state = this.state.current_state;
+        const { size, username, setWinner, game, token } = this.props;
+        const cur_sign = username === game[token].create_username ? 'X' : 'O';
+        const cur_state = this.props.game[token].current_field;
         cur_state[row][col] = cur_sign;
 
         let winner_col = 1, winner_row = 1;
@@ -73,63 +44,52 @@ class GameField extends Component{
                 winner_col *= 0;
             }
         }
-        if(winner_col){
-            this.props.setWinner(this.props.username, this.props.token);
-            return;
-        }
 
         for ( let i = 0; i < size; i++){
             if(cur_state[row][i] !== cur_sign){
                 winner_row *= 0;
             }
-        }
-        if(winner_row){
-            this.props.setWinner(this.props.username, this.props.token);
-            return;
-        }   
+        }  
 
-        
+        let winner_diagonal_1 = 0;
         if(row === col){
-            let winner_diagonal = 1    
+            winner_diagonal_1 = 1;  
             for ( let i = 0; i < size; i++){
                 if(cur_state[i][i] !== cur_sign){
-                    winner_diagonal *= 0;
+                    winner_diagonal_1 *= 0;
                 }
-            }
-            if(winner_diagonal){
-                this.props.setWinner(this.props.username, this.props.token);
-                return;
             }
         }
 
-        if(row === (size - 1) - col){
-            let winner_diagonal = 1    
+        let winner_diagonal_2 = 0;  
+        if(row === (size - 1) - col){  
+            winner_diagonal_2 = 1;  
             for ( let i = 0; i < size; i++){
                 if(cur_state[i][size - 1 - i] !== cur_sign){
-                    winner_diagonal *= 0;
+                    winner_diagonal_2 *= 0;
                 }
             }
-            if(winner_diagonal){
-                this.props.setWinner(this.props.username, this.props.token);
-                return;
-            }
         }
+
+        if(winner_col || winner_row || winner_diagonal_1 || winner_diagonal_2)
+            setWinner(username, token);
+
         return;
     }
 
     render(){
         const { size, token, game } = this.props;
-        const winner = game[token].winner ? 'Player ' + (game[token].winner) + ' win' : '';
         const squares = [];
+        let current_state = game[token].current_field;
 
-        if(this.state.current_state[0]){    
+        if(current_state[0]){    
             for(let i = 0; i < size; i++){
                 for(let j = 0; j < size; j++){
                     squares.push(
                     <Square 
                         key={i*size + j} row={i} col={j}
                         handleClick={this.handleClick.bind(this)} 
-                        val={this.state.current_state[i][j]}
+                        val={current_state[i][j]}
                         squaresWidth={100/size}
                     />)
                 }
@@ -140,7 +100,7 @@ class GameField extends Component{
         return <div className="field">
             <div className="game-block">
                 {squares}
-                {game[token].winner ? <div className='winner-field'>{winner}</div> : ''}
+                {game[token].winner ? <div className='winner-field'>{'Player ' + (game[token].winner) + ' win'}</div> : ''}
             </div>
         </div> ;
     }
