@@ -16,51 +16,7 @@ class GameField extends Component{
     handleClick(row, col){  
         if (!this.props.game[this.props.token].winner) {
             this.props.makeMove(this.props.token, row, col, this.props.username);
-            this.checkWinner(row, col);
         }
-    }
-
-    checkWinner(row, col){
-        const { size, username, setWinner, game, token } = this.props;
-        const cur_sign = username === game[token].create_username ? 'X' : 'O';
-        const cur_state = this.props.game[token].current_field;
-        cur_state[row][col] = cur_sign;
-
-        let winner_col = 1, winner_row = 1, winner_diagonal_1 = 0, winner_diagonal_2 = 0;;
-        for ( let i = 0; i < size; i++){
-            if(cur_state[i][col] !== cur_sign){
-                winner_col *= 0;
-            }
-        }
-
-        for ( let i = 0; i < size; i++){
-            if(cur_state[row][i] !== cur_sign){
-                winner_row *= 0;
-            }
-        }  
-
-        if(row === col){
-            winner_diagonal_1 = 1;  
-            for ( let i = 0; i < size; i++){
-                if(cur_state[i][i] !== cur_sign){
-                    winner_diagonal_1 *= 0;
-                }
-            }
-        }
- 
-        if(row === (size - 1) - col){  
-            winner_diagonal_2 = 1;  
-            for ( let i = 0; i < size; i++){
-                if(cur_state[i][size - 1 - i] !== cur_sign){
-                    winner_diagonal_2 *= 0;
-                }
-            }
-        }
-
-        if(winner_col || winner_row || winner_diagonal_1 || winner_diagonal_2)
-            setWinner(username, token);
-
-        return;
     }
 
     render(){

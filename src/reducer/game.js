@@ -52,13 +52,15 @@ export default function game ( state = initialState, action ){
                     let curr_field = new_state[token].current_field;
                     let condition = username === new_state[token].create_username
                     let next_turn = condition ? new_state[token].join_username : new_state[token].create_username;
+                    let winner = checkWinner(row, col, username, token, state) ? username : false;
                     curr_field[row][col] = (condition ? 'X' : 'O');
                     new_state = {
                         ...new_state,
                         [token]: {
                             ...new_state[token],
                             turn: next_turn,
-                            current_field: curr_field
+                            current_field: curr_field,
+                            winner: winner,
                         }
                     }
                 }
@@ -114,4 +116,48 @@ function createFirstState(size){
     }
 
     return temp_arr;
+}
+
+function checkWinner(row, col, username, token, state){
+    let size = state[token].current_field.length;
+    const cur_sign = username ? 'X' : 'O';
+    const cur_state = state[token].current_field;
+    cur_state[row][col] = cur_sign;
+    
+
+    let winner_col = 1, winner_row = 1, winner_diagonal_1 = 0, winner_diagonal_2 = 0;;
+    for ( let i = 0; i < size; i++){
+        if(cur_state[i][col] !== cur_sign){
+            winner_col *= 0;
+        }
+    }
+
+    for ( let i = 0; i < size; i++){
+        if(cur_state[row][i] !== cur_sign){
+            winner_row *= 0;
+        }
+    }  
+
+    if(row === col){
+        winner_diagonal_1 = 1;  
+        for ( let i = 0; i < size; i++){
+            if(cur_state[i][i] !== cur_sign){
+                winner_diagonal_1 *= 0;
+            }
+        }
+    }
+
+    if(row === (size - 1) - col){  
+        winner_diagonal_2 = 1;  
+        for ( let i = 0; i < size; i++){
+            if(cur_state[i][size - 1 - i] !== cur_sign){
+                winner_diagonal_2 *= 0;
+            }
+        }
+    }
+
+    if(winner_col || winner_row || winner_diagonal_1 || winner_diagonal_2)
+        return true;
+
+    return false;
 }
