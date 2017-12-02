@@ -30,3 +30,9 @@ a {
 .new-game-block__input{
   width: 196px;
 }
+
+.exit-block{
+  margin: auto;
+  margin-top: 20px;
+  width: 300px;
+}

@@ -18,7 +18,7 @@ class Game extends Component {
                 <div>Join: { join_username }</div>
                 <div>Size: { size_gamefield }</div>
                 <div>Game token: { params.token }</div>
-                <Link to="/"><button className="nav">Exit Game</button></Link>
+                {/* <Link to="/"><button className="nav">Exit Game</button></Link> */}
             </div>
         </div>;
     }
