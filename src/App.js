@@ -4,7 +4,6 @@ import Game from './components/Game';
 import JoinGame from './components/JoinGame';
 import Menu from './components/Menu';
 import NewGame from './components/NewGame';
-//import { connect } from 'react-redux';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -25,9 +24,3 @@ class App extends Component {
 }
 
 export default App;
-
-// export default connect(
-//   state => ({
-//     game: state.game,
-//   })
-// )(App);

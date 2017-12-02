@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import GameField from './GameField';
 import './css/Game.css';
@@ -18,7 +17,6 @@ class Game extends Component {
                 <div>Join: { join_username }</div>
                 <div>Size: { size_gamefield }</div>
                 <div>Game token: { params.token }</div>
-                {/* <Link to="/"><button className="nav">Exit Game</button></Link> */}
             </div>
         </div>;
     }

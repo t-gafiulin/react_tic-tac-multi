@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Square from './Square';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { makeMove, getState, setWinner } from '../AC';
+import { makeMove, getState } from '../AC';
 
 class GameField extends Component{
 
@@ -56,5 +56,5 @@ export default connect (
     state => ({
         game: state.game,
     }),
-    { makeMove, getState, setWinner }
+    { makeMove, getState }
 )(GameField);
