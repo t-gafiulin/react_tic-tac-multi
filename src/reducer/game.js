@@ -28,7 +28,7 @@ export default function game ( state = initialState, action ){
             const { username, token } = payload;
 
             let new_state = getItemLocalStorage();
-            if(new_state[token]){
+            if(new_state[token] && !new_state[token].join_username){
                 new_state = {
                     ...new_state,
                     [token]: {

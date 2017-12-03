@@ -1,4 +1,4 @@
-import { CREATE_GAME, JOIN_GAME, MAKE_A_MOVE, GET_STATE } from '../constants';
+import { CREATE_GAME, JOIN_GAME, MAKE_A_MOVE, GET_STATE  } from '../constants';
 
 export function createGame(username, size, token){
     return {
