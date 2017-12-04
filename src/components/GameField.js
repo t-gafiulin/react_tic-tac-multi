@@ -41,12 +41,19 @@ class GameField extends Component{
         return <div className="field">
             <div className="game-block">
                 {squares}
-                {game[token].winner ? 
+                {game[token].winner === 'draw' ? 
                     <div>
-                        <div className='winner-field'>{'Player ' + (game[token].winner) + ' win'}</div>
+                        <div className='winner-field'>{'DRAW'}</div>
                         <Link to="/"><button className="nav exit-block">Exit Game</button></Link>
                     </div>
-                     : ''}
+                    : 
+                    game[token].winner ? 
+                        <div>
+                            <div className='winner-field'>{'Player ' + (game[token].winner) + ' win'}</div>
+                            <Link to="/"><button className="nav exit-block">Exit Game</button></Link>
+                        </div> 
+                        : 
+                        ''}
             </div>
         </div> ;
     }

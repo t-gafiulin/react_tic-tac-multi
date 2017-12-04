@@ -52,8 +52,10 @@ export default function game ( state = initialState, action ){
                     let curr_field = new_state[token].current_field;
                     let condition = username === new_state[token].create_username
                     let next_turn = condition ? new_state[token].join_username : new_state[token].create_username;
-                    let winner = checkWinner(row, col, username, curr_field) ? username : false;
+                    let winner = checkWinner(row, col, username, new_state[token]) ? username : false;    
                     curr_field[row][col] = (condition ? 'X' : 'O');
+                    if(!winner)
+                        winner = checkDraw(curr_field) ? 'draw' : false;
                     new_state = {
                         ...new_state,
                         [token]: {
@@ -100,22 +102,33 @@ function createFirstState(size){
     return temp_arr;
 }
 
-function checkWinner(row, col, username, token, state){
-    let size = state[token].current_field.length;
-    const cur_sign = username ? 'X' : 'O';
-    const cur_state = state[token].current_field;
-    cur_state[row][col] = cur_sign;
+function checkDraw(curr_state){
+    for ( let i = 0; i < curr_state.length; i++) {
+        for ( let j = 0; j < curr_state.length; j++) {
+            if(curr_state[i][j] === ' ')
+                return false;
+        }
+    }
+    console.log('draw');
+    return true;
+}
+
+function checkWinner(row, col, username, current_state){
+    const curr_state = current_state.current_field;
+    const size = curr_state.length;
+    const curr_sign = username === current_state.create_username ? 'X' : 'O';
+    curr_state[row][col] = curr_sign;
     
 
     let winner_col = 1, winner_row = 1, winner_diagonal_1 = 0, winner_diagonal_2 = 0;;
     for ( let i = 0; i < size; i++){
-        if(cur_state[i][col] !== cur_sign){
+        if(curr_state[i][col] !== curr_sign){
             winner_col *= 0;
         }
     }
 
     for ( let i = 0; i < size; i++){
-        if(cur_state[row][i] !== cur_sign){
+        if(curr_state[row][i] !== curr_sign){
             winner_row *= 0;
         }
     }  
@@ -123,7 +136,7 @@ function checkWinner(row, col, username, token, state){
     if(row === col){
         winner_diagonal_1 = 1;  
         for ( let i = 0; i < size; i++){
-            if(cur_state[i][i] !== cur_sign){
+            if(curr_state[i][i] !== curr_sign){
                 winner_diagonal_1 *= 0;
             }
         }
@@ -132,7 +145,7 @@ function checkWinner(row, col, username, token, state){
     if(row === (size - 1) - col){  
         winner_diagonal_2 = 1;  
         for ( let i = 0; i < size; i++){
-            if(cur_state[i][size - 1 - i] !== cur_sign){
+            if(curr_state[i][size - 1 - i] !== curr_sign){
                 winner_diagonal_2 *= 0;
             }
         }
