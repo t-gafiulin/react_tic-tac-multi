@@ -52,7 +52,7 @@ export default function game ( state = initialState, action ){
                     let curr_field = new_state[token].current_field;
                     let condition = username === new_state[token].create_username
                     let next_turn = condition ? new_state[token].join_username : new_state[token].create_username;
-                    let winner = checkWinner(row, col, username, token, state) ? username : false;
+                    let winner = checkWinner(row, col, username, curr_field) ? username : false;
                     curr_field[row][col] = (condition ? 'X' : 'O');
                     new_state = {
                         ...new_state,
@@ -97,7 +97,6 @@ function createFirstState(size){
                 temp_arr[i][j] = ' ';
         }
     }
-
     return temp_arr;
 }
 
