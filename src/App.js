@@ -9,7 +9,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
   render() {
-    //console.log(this.props.game);
     return (
       <Router>
         <Switch>
